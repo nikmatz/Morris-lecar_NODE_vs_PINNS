@@ -1,4 +1,4 @@
-# Revision 2 experiments — how to run
+# Revision 2 experiments: how to run
 
 All new experiments of Revision 2 are run with `r2_experiments.py` (from inside `Code_final/`). Each run writes one JSON file (configuration and metrics) and one NPZ file (predictions and loss curve) to `results_R2/<exp>/`.
 

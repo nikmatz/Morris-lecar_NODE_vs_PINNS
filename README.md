@@ -1,4 +1,4 @@
-# Code and results — Comparing PINNs and Neural ODEs on the Morris–Lecar model
+# Code and results: Comparing PINNs and Neural ODEs on the Morris–Lecar model
 
 Which script produces which part of the paper (Revision 2).
 

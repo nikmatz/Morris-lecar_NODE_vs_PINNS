@@ -1,5 +1,5 @@
 """
-make_r2_outputs.py — builds every new figure and table of Revision 2 from results_R2/.
+make_r2_outputs.py: builds every new figure and table of Revision 2 from results_R2/.
 Run from Code_final/:  python make_r2_outputs.py
 Outputs: r2_figures/*.eps|png, r2_figures/tables.tex, r2_figures/numbers.json
 """
@@ -39,7 +39,7 @@ def save(fig, name):
 seeds, noise, pcol, grid, main, act, tol, gridh = (load(e) for e in ["seeds", "noise", "pinncol", "grid", "main", "act", "tol", "gridhopf"])
 TEX = []
 
-# ───────── Table: robustness to initialisation (5 seeds), train & test windows ─────────
+# --- Table: robustness to initialisation (5 seeds), train & test windows ---
 rows = []
 for sc in SC:
     for lab, runs in [("PINN", [r for r in seeds if r["scenario"] == sc and r["model"] == "pinn"]),
@@ -61,7 +61,7 @@ for i, (a, b, n, c, d, e, f) in enumerate(rows):
 t += ["\\bottomrule", "\\end{tabular}"]
 TEX.append("%% TABLE seeds\n" + "\n".join(t))
 
-# ───────── Table: robustness to noise ─────────
+# --- Table: robustness to noise ---
 t = ["\\begin{tabular}{@{}llcccccc@{}}", "\\toprule",
      "& & \\multicolumn{3}{c}{\\textbf{Training window}, $R^2_V$} & \\multicolumn{3}{c}{\\textbf{Extrapolation window}, $R^2_V$} \\\\",
      "\\cmidrule(lr){3-5}\\cmidrule(lr){6-8}",
@@ -79,7 +79,7 @@ for sc in SC:
 t += ["\\bottomrule", "\\end{tabular}"]
 TEX.append("%% TABLE noise\n" + "\n".join(t))
 
-# ───────── Grid: heatmaps + table (Hopf and Homoclinic) ─────────
+# --- Grid: heatmaps + table (Hopf and Homoclinic) ---
 D, W = [2, 3, 4], [16, 32, 64, 128, 256]
 fig, axs = plt.subplots(2, 2, figsize=(9, 6.0))
 t = ["\\begin{tabular}{@{}lllccccc@{}}", "\\toprule",
@@ -118,7 +118,7 @@ t += ["\\bottomrule", "\\end{tabular}"]
 TEX.append("%% TABLE grid\n" + "\n".join(t))
 NUM["grid_params"] = {f"{r['model']}_d{r['depth']}w{r['width']}": r["params"] for r in grid if r["seed"] == 42}
 
-# ───────── Activation / tolerance checks (NODE, homoclinic, full window, 10k epochs) ─────────
+# --- Activation / tolerance checks (NODE, homoclinic, full window, 10k epochs) ---
 for lab, runs in [("tanh", [r for r in act if r["act"] == "tanh"]), ("silu", [r for r in act if r["act"] == "silu"]), ("tol", tol)]:
     v = [r["full"]["R2_V"] for r in runs]
     NUM[f"act_{lab}"] = dict(n=len(v), R2=[np.mean(v), np.std(v, ddof=1)], all={r["seed"]: r["full"]["R2_V"] for r in runs},
@@ -130,7 +130,7 @@ NUM["act_mwu_p"] = float(stats.mannwhitneyu(a, b).pvalue)
 tt = {r["seed"]: r["full"]["R2_V"] for r in tol}; ta = {r["seed"]: r["full"]["R2_V"] for r in act if r["act"] == "tanh"}
 NUM["tol_paired_p"] = float(stats.ttest_rel([tt[s] for s in sorted(tt)], [ta[s] for s in sorted(tt)]).pvalue)
 
-# ───────── Homoclinic main (I=35.5) epoch table rows (Appendix A) ─────────
+# --- Homoclinic main (I=35.5) epoch table rows (Appendix A) ---
 mrows = {}
 for r in main:
     m = r["full"]; key = (r["model"], r["act"], r["epochs"])
@@ -144,7 +144,7 @@ for m in ["pinn", "node"]:
         L.append(f"homoclinic$^{{\\ast}}$ & {e} & {v['total']:.3f} & {v['MAE_V']:.3f} & {v['MAE_N']:.3f} & {v['R2_V']:.3f} & {v['R2_N']:.3f} & {v['MaxErr_V']:.3f} & {v['MaxErr_N']:.3f} & {v['time']:.1f}$^{{\\ddagger}}$ \\\\")
     TEX.append(f"%% APPENDIX rows {m}\n" + "\n".join(L))
 
-# ───────── Total-MSE-vs-epochs figure (Hopf, SNLC from R1 CSVs; Homoclinic from R2) ─────────
+# --- Total-MSE-vs-epochs figure (Hopf, SNLC from R1 CSVs; Homoclinic from R2) ---
 P = pd.read_csv(os.path.join(ROOT, "metrics", "metrics_pinn_summary.csv")); N = pd.read_csv(os.path.join(ROOT, "metrics", "metrics_node_summary.csv"))
 E = [1000, 2000, 5000, 10000, 20000]
 fig, axs = plt.subplots(1, 3, figsize=(12, 3.2))
@@ -159,7 +159,7 @@ for ax, sc in zip(axs, SC):
 axs[0].set_ylabel("Total MSE ($\\mathrm{MSE}_V+\\mathrm{MSE}_N$)"); axs[0].legend()
 fig.tight_layout(); save(fig, "R2_total_mse_epochs")
 
-# ───────── Appendix-B style training-progression figures (homoclinic I=35.5) ─────────
+# --- Appendix-B style training-progression figures (homoclinic I=35.5) ---
 def progression(model, act_, e):
     r = [x for x in main if x["model"] == model and x["act"] == act_ and x["epochs"] == e][0]
     z = np.load(r["_npz"]); t = z["t"]; y = z["y_true"]; p = z["pred"]
@@ -176,7 +176,7 @@ def progression(model, act_, e):
 for m in ["pinn", "node"]:
     for e in [1000, 20000]: progression(m, "tanh", e)
 
-# ───────── Activation figure: Tanh vs SiLU (seed 42 trajectories + R2 over seeds) ─────────
+# --- Activation figure: Tanh vs SiLU (seed 42 trajectories + R2 over seeds) ---
 fig, ax = plt.subplots(1, 2, figsize=(11, 3.2), gridspec_kw=dict(width_ratios=[2.3, 1]))
 z_t = np.load([r for r in act if r["act"] == "tanh" and r["seed"] == 42][0]["_npz"]); z_s = np.load([r for r in act if r["act"] == "silu" and r["seed"] == 42][0]["_npz"])
 ax[0].plot(z_t["t"], z_t["y_true"][:, 0], "k", lw=1.2, label="ground truth")
@@ -193,7 +193,7 @@ ax[1].set_xticks(range(3)); ax[1].set_xticklabels([g for g, _ in groups], fontsi
 ax[1].set_title("(b) NODE $R^2_V$ across seeds"); ax[1].grid(alpha=.3, axis="y")
 fig.tight_layout(); save(fig, "R2_homoclinic_activation")
 
-# ───────── Extrapolation figure (seed 42): PINN, PINN with full collocation, NODE ─────────
+# --- Extrapolation figure (seed 42): PINN, PINN with full collocation, NODE ---
 fig, axs = plt.subplots(3, 1, figsize=(10, 7.5), sharex=True)
 for ax, sc in zip(axs, SC):
     zp = np.load([r for r in seeds if r["scenario"] == sc and r["model"] == "pinn" and r["seed"] == 42][0]["_npz"])
