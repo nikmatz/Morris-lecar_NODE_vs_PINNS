@@ -1,0 +1,30 @@
+{
+ "job_id": "act_homoclinic_node_silu_d3w128_s46_n00_e10000",
+ "exp": "act",
+ "scenario": "homoclinic",
+ "model": "node",
+ "act": "silu",
+ "depth": 3,
+ "width": 128,
+ "seed": 46,
+ "noise": 0.0,
+ "epochs": 10000,
+ "window": "full",
+ "params": 33666,
+ "train_time_s": 3319.636140207993,
+ "final_loss": 0.05207479000091553,
+ "finite": true,
+ "full": {
+  "MSE_V": 61.703834533691406,
+  "RMSE_V": 7.855178835245662,
+  "MAE_V": 6.024703025817871,
+  "R2_V": 0.5326554775238037,
+  "MaxErr_V": 20.18071174621582,
+  "MSE_N": 0.009038713760674,
+  "RMSE_N": 0.09507215028952484,
+  "MAE_N": 0.07372545450925827,
+  "R2_N": 0.4580448865890503,
+  "MaxErr_N": 0.24655568599700928,
+  "Total_MSE": 61.71287324745208
+ }
+}
