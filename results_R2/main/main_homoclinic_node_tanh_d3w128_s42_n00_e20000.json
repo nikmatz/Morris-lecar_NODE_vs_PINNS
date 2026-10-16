@@ -1,0 +1,30 @@
+{
+ "job_id": "main_homoclinic_node_tanh_d3w128_s42_n00_e20000",
+ "exp": "main",
+ "scenario": "homoclinic",
+ "model": "node",
+ "act": "tanh",
+ "depth": 3,
+ "width": 128,
+ "seed": 42,
+ "noise": 0.0,
+ "epochs": 20000,
+ "window": "full",
+ "params": 33666,
+ "train_time_s": 6085.200799417013,
+ "final_loss": 0.07037588208913803,
+ "finite": true,
+ "full": {
+  "MSE_V": 88.60961151123047,
+  "RMSE_V": 9.413267844443313,
+  "MAE_V": 7.5596184730529785,
+  "R2_V": 0.3288712501525879,
+  "MaxErr_V": 29.136621475219727,
+  "MSE_N": 0.0116667989641428,
+  "RMSE_N": 0.10801295739004094,
+  "MAE_N": 0.08835858851671219,
+  "R2_N": 0.30046671628952026,
+  "MaxErr_N": 0.31818145513534546,
+  "Total_MSE": 88.62127831019461
+ }
+}

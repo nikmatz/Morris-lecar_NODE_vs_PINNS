@@ -1,0 +1,30 @@
+{
+ "job_id": "main_homoclinic_pinn_tanh_d3w128_s42_n00_e10000",
+ "exp": "main",
+ "scenario": "homoclinic",
+ "model": "pinn",
+ "act": "tanh",
+ "depth": 3,
+ "width": 128,
+ "seed": 42,
+ "noise": 0.0,
+ "epochs": 10000,
+ "window": "full",
+ "params": 33538,
+ "train_time_s": 188.46395220802515,
+ "final_loss": 1.6293425559997559,
+ "finite": true,
+ "full": {
+  "MSE_V": 3.0644030570983887,
+  "RMSE_V": 1.7505436461563557,
+  "MAE_V": 1.2768193483352661,
+  "R2_V": 0.9767902493476868,
+  "MaxErr_V": 12.105575561523438,
+  "MSE_N": 0.0006195807363837957,
+  "RMSE_N": 0.02489137875618375,
+  "MAE_N": 0.017765820026397705,
+  "R2_N": 0.9628503322601318,
+  "MaxErr_N": 0.11179487407207489,
+  "Total_MSE": 3.0650226378347725
+ }
+}

@@ -1,5 +1,5 @@
 """
-plot_fig3.py — Figure 3 of the paper (Hopf parameter set at I = 50, below the onset of
+plot_fig3.py: Figure 3 of the paper (Hopf parameter set at I = 50, below the onset of
 oscillations). Re-plots the stored PINN and NODE models trained for 10,000 epochs by
 Pinns_50_final.py and NODE_50_final.py (no retraining). Run from inside single_run/.
 """

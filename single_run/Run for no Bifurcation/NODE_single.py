@@ -12,7 +12,7 @@ import gc
 
 # ==== DEVICE CONFIG ====
 device = torch.device("cpu" if torch.cuda.is_available() else "cpu")
-print(f"✅ Device in use: {device}")
+print(f"Device in use: {device}")
 
 # ==== FOLDERS ====
 os.makedirs("plots_node", exist_ok=True)
@@ -49,7 +49,7 @@ class ODEFunc(nn.Module):
 def load_ground_truth_from_csv(scenario_name):
     path = f"scenario_data/{scenario_name}_ground_truth.csv"
     if not os.path.exists(path):
-        raise FileNotFoundError(f"❌ File not found: {path}")
+        raise FileNotFoundError(f"File not found: {path}")
     df = pd.read_csv(path)
     t = df["t"].values
     V = df["V"].values.reshape(-1, 1)
@@ -84,7 +84,7 @@ def train_node(scenario_name, t_np, y_np, epochs, lr=1e-4, patience=2000, delta=
     counter = 0
     loss_list = []
 
-    progress = trange(epochs, desc=f"🧠 Training {scenario_name} ({epochs} ep)", leave=False)
+    progress = trange(epochs, desc=f"Training {scenario_name} ({epochs} ep)", leave=False)
 
     for epoch in progress:
         optimizer.zero_grad()
@@ -92,7 +92,7 @@ def train_node(scenario_name, t_np, y_np, epochs, lr=1e-4, patience=2000, delta=
         try:
             pred_y = odeint(model, y0, t_tensor, method='dopri5')
         except Exception as e:
-            print(f"❌ Integration failed at epoch {epoch}: {e}")
+            print(f"Integration failed at epoch {epoch}: {e}")
             break
 
         loss = loss_fn(pred_y, y_tensor)
@@ -103,7 +103,7 @@ def train_node(scenario_name, t_np, y_np, epochs, lr=1e-4, patience=2000, delta=
         progress.set_postfix(loss=loss_value)
 
         if epoch % verbose_step == 0:
-            print(f"📉 Epoch {epoch:5d} | Loss = {loss_value:.4f}")
+            print(f"Epoch {epoch:5d} | Loss = {loss_value:.4f}")
 
         if loss_value + delta < best_loss:
             best_loss = loss_value
@@ -121,7 +121,7 @@ all_results = []
 epoch_list = [10000]
 
 for scenario_name in scenarios:
-    print(f"🔁 Scenario: {scenario_name.upper()}")
+    print(f"Scenario: {scenario_name.upper()}")
     t_np, y_np, scaler_V, scaler_N = load_ground_truth_from_csv(scenario_name)
     t_tensor = torch.tensor(t_np, dtype=torch.float32).to(device)
 
@@ -130,7 +130,7 @@ for scenario_name in scenarios:
     best_epoch = None
 
     for epochs in epoch_list:
-        print(f"▶ Training NODE - {epochs} epochs")
+        print(f"Training NODE - {epochs} epochs")
         model, loss_list = train_node(scenario_name, t_np, y_np, epochs)
 
         with torch.no_grad():
@@ -163,4 +163,4 @@ for scenario_name in scenarios:
 
         clean_memory(model, loss_list, pred, y0)
 
-print("\n✅ All NODE training complete.")
+print("\nAll NODE training complete.")

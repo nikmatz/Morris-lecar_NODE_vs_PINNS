@@ -25,11 +25,11 @@ if USE_DETERMINISTIC:
     torch.use_deterministic_algorithms(True)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
-    print("🧪 Deterministic mode active with seed", SEED)
+    print("Deterministic mode active with seed", SEED)
 
 # ==== DEVICE CONFIGURATION ====
 device = torch.device("cpu")
-print(f"✅ Device in use: {device}")
+print(f"Device in use: {device}")
 
 # ==== USE FLOAT32 BY DEFAULT ====
 torch.set_default_dtype(torch.float32)
@@ -94,7 +94,7 @@ def train_and_evaluate(scenario_name, params, epoch_list):
     best_epoch = None
 
     for epochs in epoch_list:
-        print(f"\n▶ Training {scenario_name.upper()} for {epochs} epochs")
+        print(f"\nTraining {scenario_name.upper()} for {epochs} epochs")
         func = NODEFunc().to(device)
         optimizer = torch.optim.Adam(func.parameters(), lr=1e-3)
         loss_list = []
@@ -185,7 +185,7 @@ def train_and_evaluate(scenario_name, params, epoch_list):
     # === Save best model ===
     if best_model_state is not None:
         torch.save(best_model_state, f"models_node/{scenario_name}_best_model_{best_epoch}epochs.pth")
-        print(f"📂 Best model saved: models_node/{scenario_name}_best_model_{best_epoch}epochs.pth (Loss = {best_loss:.5f})")
+        print(f"Best model saved: models_node/{scenario_name}_best_model_{best_epoch}epochs.pth (Loss = {best_loss:.5f})")
 
     return results
 
@@ -200,10 +200,10 @@ for name, cfg in scenarios.items():
 # === Save results to CSV ===
 df = pd.DataFrame(all_results)
 df.to_csv("metrics/metrics_node_summary.csv", index=False)
-print("✅ All NODE training complete. Metrics saved.")
+print("All NODE training complete. Metrics saved.")
 
 # === Display best models summary ===
-print("\n🏆 Best NODE Models Per Scenario:")
+print("\nBest NODE Models Per Scenario:")
 grouped = df.groupby("Scenario")
 for scenario, group in grouped:
     best_row = group.loc[(group["MSE_V"] + group["MSE_N"]).idxmin()]
@@ -215,7 +215,7 @@ for scenario, group in grouped:
     flops = best_row["FLOPs"]
     params = best_row["Params"]
 
-    print(f"  ▶ {scenario.upper()}:")
+    print(f"  {scenario.upper()}:")
     print(f"     → Best at {epochs} epochs")
     print(f"     → Total MSE = {total_mse:.4e}")
     print(f"     → RMSE_V = {rmse_v:.4f}, RMSE_N = {rmse_n:.4f}")

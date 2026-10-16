@@ -1,5 +1,5 @@
 """
-unst_fold.py — unstable limit cycles of the Hopf regime close to the fold of limit cycles (LPC).
+unst_fold.py: unstable limit cycles of the Hopf regime close to the fold of limit cycles (LPC).
 Near the fold the branch is almost vertical in I, so instead of fixing I and solving for the
 fixed point of the return map, the section coordinate v0 is fixed and the current I(v0) is
 solved for. Fixed section: N = N*, V > V* (equilibrium at I = 88.5), upward crossings.

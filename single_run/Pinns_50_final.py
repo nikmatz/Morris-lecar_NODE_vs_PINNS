@@ -22,11 +22,11 @@ if USE_DETERMINISTIC:
     torch.use_deterministic_algorithms(True)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
-    print("🧪 Deterministic mode active with seed", SEED)
+    print("Deterministic mode active with seed", SEED)
 
 # ==== DEVICE CONFIGURATION ====
 device = torch.device("cpu")
-print(f"✅ Device in use: {device}")
+print(f"Device in use: {device}")
 
 # ==== USE FLOAT32 BY DEFAULT ====
 torch.set_default_dtype(torch.float32)
@@ -82,7 +82,7 @@ def residual_loss(t, pred, p):
 def load_ground_truth_from_csv(scenario_name):
     path = f"scenario_data/{scenario_name}_ground_truth.csv"
     if not os.path.exists(path):
-        raise FileNotFoundError(f"❌ File not found: {path}")
+        raise FileNotFoundError(f"File not found: {path}")
     df = pd.read_csv(path)
     t = df["t"].values
     V = df["V"].values
@@ -102,7 +102,7 @@ def train_and_evaluate(scenario_name, params, epoch_list):
     best_epoch = None
 
     for epochs in epoch_list:
-        print(f"\n▶ Training {scenario_name.upper()} for {epochs} epochs")
+        print(f"\nTraining {scenario_name.upper()} for {epochs} epochs")
         model = PINN().to(device)
         optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
         mse = nn.MSELoss()
@@ -186,7 +186,7 @@ def train_and_evaluate(scenario_name, params, epoch_list):
 
     if best_model_state is not None:
         torch.save(best_model_state, f"models_pinn/{scenario_name}_best_model_{best_epoch}epochs.pth")
-        print(f"💾 Best model saved: models_pinn/{scenario_name}_best_model_{best_epoch}epochs.pth (Loss = {best_loss:.5f})")
+        print(f"Best model saved: models_pinn/{scenario_name}_best_model_{best_epoch}epochs.pth (Loss = {best_loss:.5f})")
 
     return results
 
@@ -200,9 +200,9 @@ for name, cfg in scenarios.items():
 
 df = pd.DataFrame(all_results)
 df.to_csv("metrics/metrics_pinn_summary.csv", index=False)
-print("✅ All PINN training complete. Metrics saved.")
+print("All PINN training complete. Metrics saved.")
 
-print("\n🏆 Best PINN Models Per Scenario:")
+print("\nBest PINN Models Per Scenario:")
 grouped = df.groupby("Scenario")
 
 for scenario, group in grouped:
@@ -215,7 +215,7 @@ for scenario, group in grouped:
     flops = best_row["FLOPs"]
     params = best_row["Params"]
 
-    print(f"  ▶ {scenario.upper()}:")
+    print(f"  {scenario.upper()}:")
     print(f"     → Best at {epochs} epochs")
     print(f"     → Total MSE = {total_mse:.4e}")
     print(f"     → RMSE_V = {rmse_v:.4f}, RMSE_N = {rmse_n:.4f}")

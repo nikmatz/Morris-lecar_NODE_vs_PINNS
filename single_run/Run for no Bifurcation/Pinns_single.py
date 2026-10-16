@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.metrics import mean_squared_error
 import os
-from tqdm import tqdm  # ✅ Progress bar library
+from tqdm import tqdm  # Progress bar library
 
 # ==== GPU CONFIGURATION ====
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"✅ Device in use: {device}")
+print(f"Device in use: {device}")
 
 os.makedirs("plots_pinn", exist_ok=True)
 
@@ -56,7 +56,7 @@ def residual_loss(t, pred, p):
 def load_ground_truth_from_csv(scenario_name):
     path = f"scenario_data/{scenario_name}_ground_truth.csv"
     if not os.path.exists(path):
-        raise FileNotFoundError(f"❌ File not found: {path}")
+        raise FileNotFoundError(f"File not found: {path}")
     df = pd.read_csv(path)
     t = df["t"].values
     V = df["V"].values
@@ -76,7 +76,7 @@ def train_and_evaluate(scenario_name, params, epoch_list):
     best_epoch = None
 
     for epochs in epoch_list:
-        print(f"\n▶ Training {scenario_name.upper()} for {epochs} epochs")
+        print(f"\nTraining {scenario_name.upper()} for {epochs} epochs")
         model = PINN().to(device)
         optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=500)
@@ -140,4 +140,4 @@ for name, cfg in scenarios.items():
     res = train_and_evaluate(name, cfg['params'], epoch_list)
     all_results.extend(res)
 
-print("✅ All PINN training complete. Metrics saved.")
+print("All PINN training complete. Metrics saved.")

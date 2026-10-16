@@ -1,0 +1,80 @@
+
+    ==============================
+    Scenario: Homoclinic
+    Equilibrium point: V* = 5.4540, N* = 0.3203
+    Jacobian:
+    [[-3.5588e+01 -3.5782e+01]
+ [ 5.6551e-03 -2.3408e-01]]
+    Eigenvalues: [-35.58261231  -0.23980543]
+    Type: Stable node/focus
+    ==============================
+
+    ==============================
+    Scenario: SNLC
+    Equilibrium point: V* = 4.8622, N* = 0.3057
+    Jacobian:
+    [[-3.5327e+01 -3.5545e+01]
+ [ 1.6007e-03 -6.8414e-02]]
+    Eigenvalues: [-35.32573037  -0.07002802]
+    Type: Stable node/focus
+    ==============================
+
+    ==============================
+    Scenario: Hopf
+    Equilibrium point: V* = -26.5969, N* = 0.1294
+    Jacobian:
+    [[-2.2935e+01 -2.2961e+01]
+ [ 2.6921e-04 -4.4630e-02]]
+    Eigenvalues: [-22.93516319  -0.04489993]
+    Type: Stable node/focus
+    ==============================
+
+    ==============================
+    Scenario: Hopf_50
+    Equilibrium point: V* = -40.3106, N* = 0.0562
+    Jacobian:
+    [[-1.7552e+01 -1.7476e+01]
+ [ 1.1237e-04 -5.0365e-02]]
+    Eigenvalues: [-17.55144295  -0.05047671]
+    Type: Stable node/focus
+    ==============================
+
+    ==============================
+    Scenario: Homoclinic
+    Equilibrium point: V* = 5.4540, N* = 0.3203
+    Jacobian:
+    [[-3.5588e+01 -3.5782e+01]
+ [ 5.6551e-03 -2.3408e-01]]
+    Eigenvalues: [-35.58261231  -0.23980543]
+    Type: Stable node/focus
+    ==============================
+
+    ==============================
+    Scenario: SNLC
+    Equilibrium point: V* = 4.8622, N* = 0.3057
+    Jacobian:
+    [[-3.5327e+01 -3.5545e+01]
+ [ 1.6007e-03 -6.8414e-02]]
+    Eigenvalues: [-35.32573037  -0.07002802]
+    Type: Stable node/focus
+    ==============================
+
+    ==============================
+    Scenario: Hopf
+    Equilibrium point: V* = -26.5969, N* = 0.1294
+    Jacobian:
+    [[-2.2935e+01 -2.2961e+01]
+ [ 2.6921e-04 -4.4630e-02]]
+    Eigenvalues: [-22.93516319  -0.04489993]
+    Type: Stable node/focus
+    ==============================
+
+    ==============================
+    Scenario: Hopf_50
+    Equilibrium point: V* = -40.3106, N* = 0.0562
+    Jacobian:
+    [[-1.7552e+01 -1.7476e+01]
+ [ 1.1237e-04 -5.0365e-02]]
+    Eigenvalues: [-17.55144295  -0.05047671]
+    Type: Stable node/focus
+    ==============================
